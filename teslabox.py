@@ -37,8 +37,8 @@ class Teslabox:
                     "move": protocol.Touch.Action.Move
                 }
                 msg.action = types[type]
-                msg.x = int(x * 10000 / 800)
-                msg.y = int(y * 10000 / 400)
+                msg.x = int(x * 10000 / 1280)
+                msg.y = int(y * 10000 / 720)
             else:
                 types = {
                     "down": protocol.MultiTouch.Touch.Action.Down,

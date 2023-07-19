@@ -107,7 +107,7 @@ class Open(Message):
         # Some default values to use
         self.width = 800
         self.height = 480
-        self.videoFrameRate = 30
+        self.videoFrameRate = 15
         self.format = 5
         self.packetMax = 49152
         self.iBoxVersion = 2
