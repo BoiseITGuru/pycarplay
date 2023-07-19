@@ -24,7 +24,7 @@ class Teslabox:
 
             # Scale the x and y coordinates based on actual display dimensions
             scaleX = 800 / displayWidth
-            scaleY = 400 / displayHeight
+            scaleY = 480 / displayHeight
             x = int(x * scaleX)
             y = int(y * scaleY)
 
