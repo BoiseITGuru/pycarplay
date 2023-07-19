@@ -17,24 +17,44 @@ class Teslabox:
         def __init__(self, owner):
             self._owner = owner
             super().__init__()
-        def on_touch(self, type, x, y):
+
+        def on_touch(self, type, x, y, displayWidth, displayHeight):
             if self._owner.connection is None:
                 return
+
+            # Scale the x and y coordinates based on actual display dimensions
+            scaleX = 800 / displayWidth
+            scaleY = 400 / displayHeight
+            x = int(x * scaleX)
+            y = int(y * scaleY)
+
+            # Initialize the appropriate protocol message
             if True:
                 msg = protocol.Touch()
-                types = {"down": protocol.Touch.Action.Down, "up": protocol.Touch.Action.Up, "move": protocol.Touch.Action.Move}
+                types = {
+                    "down": protocol.Touch.Action.Down,
+                    "up": protocol.Touch.Action.Up,
+                    "move": protocol.Touch.Action.Move
+                }
                 msg.action = types[type]
-                msg.x = int(x*10000/800)
-                msg.y = int(y*10000/400)
+                msg.x = int(x * 10000 / 800)
+                msg.y = int(y * 10000 / 400)
             else:
-                types = {"down": protocol.MultiTouch.Touch.Action.Down, "up": protocol.MultiTouch.Touch.Action.Up, "move": protocol.MultiTouch.Touch.Action.Move}
+                types = {
+                    "down": protocol.MultiTouch.Touch.Action.Down,
+                    "up": protocol.MultiTouch.Touch.Action.Up,
+                    "move": protocol.MultiTouch.Touch.Action.Move
+                }
                 msg = protocol.MultiTouch()
                 tch = protocol.MultiTouch.Touch()
                 tch.x = int(x)
                 tch.y = int(y)
                 tch.action = types[type]
                 msg.touches.append(tch)
+
+            # Send the message
             self._owner.connection.send_message(msg)
+
         def on_get_snapshot(self):
             return self._owner._frame
     class _Decoder(decoder.Decoder):

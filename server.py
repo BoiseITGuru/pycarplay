@@ -83,14 +83,26 @@ function goFullscreen(id) {
     }  
 }
 function mouse(type, event) {
-	fetch("/touch", {method: 'POST', cache: 'no-cache', body: JSON.stringify({"type": type, "x": event.offsetX, "y": event.offsetY})})
-	.then((response) => {
-		return response.json();
-	})
-	.then((json) => {
-		if (!json["ok"])
-			console.log("Error sending touch");
-	});
+    let displayWidth = image.width;
+    let displayHeight = image.height;
+    fetch("/touch", {
+        method: 'POST', 
+        cache: 'no-cache', 
+        body: JSON.stringify({
+            "type": type, 
+            "x": event.offsetX, 
+            "y": event.offsetY, 
+            "displayWidth": displayWidth, 
+            "displayHeight": displayHeight
+        })
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then((json) => {
+        if (!json["ok"])
+            console.log("Error sending touch");
+    });
 }
 function loadimage(url, handle) {
     var downloading = new Image();
@@ -195,7 +207,7 @@ function run() {
 			content_len = int(self.headers.get('Content-length', 0))
 			poster(self, simplejson.loads(self.rfile.read(content_len)))
 
-	def on_touch(self, type, x, y):
+	def on_touch(self, type, x, y, displayWidth, displayHeight):
 		"""Callback for when a touch is received from the web browser [called from a web server thread]."""
 		pass
 
