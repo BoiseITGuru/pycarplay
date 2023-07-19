@@ -67,7 +67,7 @@ margin-left: -300px;
 }
 </style>
 </head>
-<body onload="run()" style="margin: 0px; background: #000000;">
+<body onload="run()" style="margin: 10px; background: #000000;">
 <img id="display">
 <script>
 function mouse(type, event) {

@@ -105,9 +105,9 @@ class Open(Message):
     def __init__(self):
         super().__init__(self.msgtype)
         # Some default values to use
-        self.width = 800
-        self.height = 600
-        self.videoFrameRate = 60
+        self.width = 1280
+        self.height = 720
+        self.videoFrameRate = 30
         self.format = 5
         self.packetMax = 49152
         self.iBoxVersion = 2
