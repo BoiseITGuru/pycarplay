@@ -25,7 +25,7 @@ class Teslabox:
                 types = {"down": protocol.Touch.Action.Down, "up": protocol.Touch.Action.Up, "move": protocol.Touch.Action.Move}
                 msg.action = types[type]
                 msg.x = int(x*10000/800)
-                msg.y = int(y*10000/600)
+                msg.y = int(y*10000/400)
             else:
                 types = {"down": protocol.MultiTouch.Touch.Action.Down, "up": protocol.MultiTouch.Touch.Action.Up, "move": protocol.MultiTouch.Touch.Action.Move}
                 msg = protocol.MultiTouch()
