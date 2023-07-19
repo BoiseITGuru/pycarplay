@@ -42,7 +42,12 @@ class Decoder:
 					self.owner.on_frame(png)
 
 	def __init__(self):
-		self.child = subprocess.Popen(["ffmpeg", "-threads", "4", "-i", "-", "-vf", "fps=7", "-c:v", "png", "-f", "image2pipe", "-"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=1)
+		# Here we added the -c:v h264_mmal to utilize hardware acceleration
+		# for h264 decoding on Raspberry Pi
+		# OLD: self.child = subprocess.Popen(["ffmpeg", "-threads", "4", "-i", "-", "-vf", "fps=7", "-c:v", "png", "-f", "image2pipe", "-"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=1)
+		self.child = subprocess.Popen(
+			["ffmpeg", "-threads", "4", "-c:v", "h264_mmal", "-i", "-", "-vf", "fps=7", "-c:v", "png", "-f",
+			 "image2pipe", "-"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=1)
 		fd = self.child.stdout.fileno()
 		fl = fcntl.fcntl(fd, fcntl.F_GETFL)
 		fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
