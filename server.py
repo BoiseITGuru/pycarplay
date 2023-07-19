@@ -60,8 +60,8 @@ img {
 position: absolute;
 top: 50%;
 left: 50%;
-width: 800px;
-height: 600px;
+width: 1280px;
+height: 720px;
 margin-top: -400px;
 margin-left: -300px;
 }

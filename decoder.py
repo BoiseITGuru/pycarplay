@@ -49,7 +49,7 @@ class Decoder:
 		# 	["ffmpeg", "-threads", "4", "-c:v", "h264_mmal", "-i", "-", "-vf", "fps=7", "-c:v", "png", "-f",
 		# 	 "image2pipe", "-"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=1)
 		self.child = subprocess.Popen(
-			["ffmpeg", "-hwaccel", "auto", "-threads", "4", "-i", "-", "-vf", "fps=10", "-c:v", "png", "-f",
+			["ffmpeg", "-hwaccel", "auto", "-threads", "4", "-i", "-", "-vf", "fps=7", "-c:v", "png", "-f",
 			 "image2pipe", "-"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=1)
 		fd = self.child.stdout.fileno()
 		fl = fcntl.fcntl(fd, fcntl.F_GETFL)
