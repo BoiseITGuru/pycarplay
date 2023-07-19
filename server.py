@@ -56,20 +56,32 @@ class Server:
 <head>
 <title>TeslaCarPlay</title>
 <style>
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: #000000;
+}
 img {
-position: absolute;
-top: 50%;
-left: 50%;
-width: 1280px;
-height: 720px;
-margin-top: -400px;
-margin-left: -300px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 </style>
 </head>
-<body onload="run()" style="margin: 10px; background: #000000;">
-<img id="display">
+<body onload="run()">
+<img id="display" onclick="goFullscreen('display')">
 <script>
+function goFullscreen(id) {
+    var element = document.getElementById(id);       
+    if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();
+    }  
+}
 function mouse(type, event) {
 	fetch("/touch", {method: 'POST', cache: 'no-cache', body: JSON.stringify({"type": type, "x": event.offsetX, "y": event.offsetY})})
 	.then((response) => {
